@@ -2,6 +2,7 @@
 # Sample customers blueprint of endpoints
 # Remove this file if you are not using it in your project
 ########################################################
+# quill adding a test comment
 
 from flask import Blueprint
 from flask import request
@@ -47,7 +48,7 @@ def get_products():
     response.status_code = 200
     # send the response back to the client
     return response
-
+#new commemnt
 # ------------------------------------------------------------
 # get product information about a specific product
 # notice that the route takes <id> and then you see id
