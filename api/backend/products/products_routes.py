@@ -16,6 +16,8 @@ from backend.db_connection import db
 # routes.
 products = Blueprint('products', __name__)
 
+
+#new comment by Lucia 
 #------------------------------------------------------------
 # Get all the products from the database, package them up,
 # and return them to the client
