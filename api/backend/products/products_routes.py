@@ -14,9 +14,6 @@ from backend.db_connection import db
 # Create a new Blueprint object, which is a collection of 
 # routes.
 products = Blueprint('products', __name__)
-
-
-#new comment by Lucia 
 #------------------------------------------------------------
 # Get all the products from the database, package them up,
 # and return them to the client
@@ -49,7 +46,7 @@ def get_products():
     response.status_code = 200
     # send the response back to the client
     return response
-
+ 
 # ------------------------------------------------------------
 # get product information about a specific product
 # notice that the route takes <id> and then you see id
