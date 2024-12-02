@@ -1,10 +1,6 @@
 # CS3200 - Database Design Final Project Repository
 ###
-Quillian Alewine
-Sarah Cooper
-San Yan
-Nusha Bhat
-Lucia Yaniz
+Quillian Alewine, Sarah Cooper, San Yan, Nusha Bhat, Lucia Yaniz
 
 ## Prerequisites
 
