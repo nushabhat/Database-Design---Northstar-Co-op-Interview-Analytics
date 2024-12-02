@@ -16,7 +16,12 @@ st.markdown (
 
     Project Name: Northstar Technologies
     Team Name: The BigDippas
-    Team Members: Quillian Alewine, Sarah Cooper, San Yan, Nusha Bhat, Lucia Yaniz 
+    Team Members: 
+    Quillian Alewine, 
+    Sarah Cooper, 
+    San Yan, 
+    Nusha Bhat, 
+    Lucia Yaniz 
 
     """
         )
