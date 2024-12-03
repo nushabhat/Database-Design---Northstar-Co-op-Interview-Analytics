@@ -15,23 +15,25 @@ st.markdown (
     With NorthStar's interactive ratings and reviews, students can anonymously connect with peers who are preparing for similar roles, using a chat system to exchange tips and insights specific to their field or industry. The platform also features tailored filters, allowing users to easily search and sort posts by co-op type, company, and industry, simplifying their search process. By offering real-time community support and streamlined access to relevant information, NorthStar helps students approach their co-op interviews confidently and clearly.
 """)
 st.write("# About the Team")
-
-
-# team members for about team
 people = [
-    {"image": "person1.jpg", "name": "Quillian Alewine"},
-    {"image": "person2.jpg", "name": "Sarah Cooper"},
-    {"image": "person3.jpg", "name": "San Yan"},
+    {"image": None, "name": "Quillian Alewine"},
+    {"image": None, "name": "Sarah Cooper"},
+    {"image": None, "name": "San Yan"},
     {"image": "canvaspfp.png", "name": "Nusha Bhat"},
-    {"image": "person5.jpg", "name": "Lucia Yaniz"}
+    {"image": None, "name": "Lucia Yaniz"}
 ]
 
-cols = st.columns(5) 
+# columns to display team members
+cols = st.columns(5)
 
 for i, person in enumerate(people):
     with cols[i]:
-        st.image(person["image"], use_column_width=True)
+        if person["image"]:
+            st.image(person["image"], use_container_width=True)
+        else:
+            st.image("https://via.placeholder.com/150", use_container_width=True)  # Placeholder image
         st.write(f"**{person['name']}**")
+
 
 # st.markdown (
 #     """
