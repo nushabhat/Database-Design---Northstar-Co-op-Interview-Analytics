@@ -18,22 +18,16 @@ st.markdown(
 
 st.write("# About the Team")
 
-# Team members with placeholder handling
-people = [
-    {"image": None, "name": "Quillian Alewine"},
-    {"image": None, "name": "Sarah Cooper"},
-    {"image": None, "name": "San Yan"},
-    {"image": None, "name": "Nusha Bhat"},
-    {"image": None, "name": "Lucia Yaniz"}
-]
+st.markdown (
+    """
+    Project Name: NorthStar Technologies<br>
+    Team Name: The BigDippas<br>
+    Team Members <br>
+    Quillian Alewine <br>
+    Sarah Cooper<br>
+    San Yan<br>
+    Nusha Bhat<br>
+    Lucia Yaniz     
 
-cols = st.columns(5)
-
-for i, person in enumerate(people):
-    with cols[i]:
-        # Use a placeholder if image is not available
-        if person["image"]:
-            st.image(person["image"], use_container_width=True)
-        else:
-            st.image("https://via.placeholder.com/150", caption=f"{person['name']}", use_container_width=True)
-        st.write(f"**{person['name']}**")
+"""
+)
