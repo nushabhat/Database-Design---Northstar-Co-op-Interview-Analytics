@@ -36,7 +36,7 @@ SideBarLinks(show_home=True)
 logger.info("Loading the Home page of the app")
 st.title('NORTHSTAR')
 st.write('\n\n')
-st.write('### HI! As which user would you like to log in?')
+st.write('### Welcome to NorthStar Technologies! As which user would you like to log in?')
 
 # For each of the user personas for which we are implementing
 # functionality, we put a button on the screen that the user 
