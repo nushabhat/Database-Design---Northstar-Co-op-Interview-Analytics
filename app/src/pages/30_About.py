@@ -19,11 +19,11 @@ st.write("# About the Team")
 
 # team members for about team
 people = [
-    {"image": "person1.jpg", "name": "Quillian Alewine"},
-    {"image": "person2.jpg", "name": "Sarah Cooper"},
-    {"image": "person3.jpg", "name": "San Yan"},
+    {"image": None, "name": "Quillian Alewine"},
+    {"image": None, "name": "Sarah Cooper"},
+    {"image": None, "name": "San Yan"},
     {"image": "canvaspfp.png", "name": "Nusha Bhat"},
-    {"image": "person5.jpg", "name": "Lucia Yaniz"}
+    {"image": None, "name": "Lucia Yaniz"}
 ]
 
 cols = st.columns(5) 
