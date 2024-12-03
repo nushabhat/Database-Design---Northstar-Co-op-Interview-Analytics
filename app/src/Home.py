@@ -33,7 +33,7 @@ SideBarLinks(show_home=True)
 # ***************************************************
 
 # set the title of the page and provide a simple prompt. 
-logger.info("Loading the Home page of the app")
+logger.info("Loading the Home page...")
 st.title('NORTHSTAR')
 st.write('\n\n')
 st.write('### Welcome to NorthStar Technologies! As which user would you like to log in?')
