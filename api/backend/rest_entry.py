@@ -3,6 +3,7 @@ from flask import Flask
 from backend.db_connection import db
 from backend.customers.customer_routes import customers
 from backend.products.products_routes import products
+from backend.students.students_routes import students
 from backend.simple.simple_routes import simple_routes
 from backend.students.students_experience_form import experience_submission 
 import os
@@ -44,6 +45,7 @@ def create_app():
     app.register_blueprint(customers,   url_prefix='/c')
     app.register_blueprint(products,    url_prefix='/p')
     app.register_blueprint(experience_submission, url_prefix='/e')  # Register experience_submission blueprint
+    app.register_blueprint(students,  url_prefix='/s')
 
     # Don't forget to return the app object
     return app

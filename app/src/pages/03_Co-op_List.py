@@ -1,43 +1,50 @@
-
-#Should include a list of co-ops based on the searched tags
-
 import streamlit as st
 import pandas as pd
-import os
+from modules.nav import SideBarLinks
 
-st.title("Co-op List")
+# Page title
+st.set_page_config(layout="wide")
 
-# load experience submissions data
-file_path = "experience_submissions.csv"
+SideBarLinks()
 
-# filters for coop search
-st.sidebar.header("Search Filters")
+st.title("Co-op Search Results")
 
-# search by tags/keywords
-tags = st.sidebar.multiselect(
-    options=data.columns
-)
-
-search_keyword = st.sidebar.text_input(
-    "Enter a keyword to filter results (optional)"
-)
-
-# show results
-if tags:
-    filtered_data = data.copy()
-
-    for tag in tags:
-        filter_values = st.sidebar.multiselect(f"Filter by {tag}", options=filtered_data[tag].unique())
-        if filter_values:
-            filtered_data = filtered_data[filtered_data[tag].isin(filter_values)]
-
-    if search_keyword:
-        filtered_data = filtered_data[
-            filtered_data.apply(lambda row: search_keyword.lower() in row.astype(str).str.lower().to_string(), axis=1)
-        ]
-
-    st.write(f"### Matching Co-op Experiences ({len(filtered_data)} results)")
-    st.dataframe(filtered_data)
+# Check if search results and parameters exist in session state
+if 'search_results' not in st.session_state or 'search_params' not in st.session_state:
+    st.error("No search results found. Please go back and perform a search.")
+    
+    # Button to go back to the home page
+    if st.button("Go Back"):
+        st.switch_page("home")
 else:
-    st.write("### All Co-op Experiences")
-    st.dataframe(data)
+    # Display search criteria as colored ovals
+    st.markdown("### Search Criteria:")
+    criteria = st.session_state['search_params']
+    
+    # Use HTML-like formatting for the colored ovals
+    criteria_html = f"""
+    <div style="display: flex; gap: 10px; margin-bottom: 20px;">
+        <div style="background-color: #ffcccb; color: #000; padding: 10px 20px; border-radius: 20px;">Industry: {criteria.get('industry', 'N/A')}</div>
+        <div style="background-color: #add8e6; color: #000; padding: 10px 20px; border-radius: 20px;">Company Name: {criteria.get('company_name', 'N/A')}</div>
+        <div style="background-color: #90ee90; color: #000; padding: 10px 20px; border-radius: 20px;">Role Name: {criteria.get('role_name', 'N/A')}</div>
+    </div>
+    """
+    st.markdown(criteria_html, unsafe_allow_html=True)
+    # Display search results in a nicely formatted table
+    results = st.session_state['search_results']
+    
+    if results:
+        st.subheader("Results Found")
+        # Convert results to a DataFrame for better display
+        results_df = pd.DataFrame(results)
+        st.dataframe(results_df)
+    else:
+        st.info("No results found for your search criteria.")
+
+    # Action buttons
+    st.divider()
+    col1, _ = st.columns(2)
+    
+    with col1:
+        if st.button("New Search"):
+            st.switch_page("pages/00_Co-op_Student_Home.py")
