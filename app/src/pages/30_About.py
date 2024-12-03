@@ -17,7 +17,7 @@ st.markdown (
 st.write("# About the Team")
 
 
-# team members
+# team members for about team
 people = [
     {"image": "person1.jpg", "name": "Quillian Alewine"},
     {"image": "person2.jpg", "name": "Sarah Cooper"},
