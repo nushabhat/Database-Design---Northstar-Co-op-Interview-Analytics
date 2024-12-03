@@ -1,59 +1,55 @@
 import logging
-logger = logging.getLogger(__name__)
-
+import requests
 import streamlit as st
 from modules.nav import SideBarLinks
 
-# Set up Streamlit page layout
+logger = logging.getLogger(__name__)
+
 st.set_page_config(layout='wide')
 
-# Show appropriate sidebar links for the role of the currently logged-in user
 SideBarLinks()
 
-# Page title and header
-st.title(f"Hi, {st.session_state['first_name']}...")
-st.write('')
-st.write('')
-st.write('### What interview are you looking to prep for today?')
+st.title("Search for Co-ops")
 
-# Dropdown options for Industry (Replace these with all unique industries)
-options1 = [' ', 'Option 1', 'Option 2', 'Option 3']
+col1, col2 = st.columns(2)
 
+with col1:
+    industry = st.selectbox(
+        'Industry:',
+        options=['', 'Tech', 'Healthcare', 'Finance', 'Education'],  # Example options
+        help='Select the industry you are interested in'
+    )
+with col2:
+    company_name = st.text_input(
+        'Company Name:',
+        placeholder='Enter the company name'
+    )
 
-st.markdown("""
-    <style>
-        .dropdown-label,
-        .input-label {
-            font-size: 18px; /* Set font size for all labels */
-            margin-bottom: 5px; /* Reduce spacing */
-        }
-        .streamlit-button {
-            font-size: 18px; /* Set font size for button */
-        }
-        .stTextInput, .stSelectbox {
-            font-size: 18px; /* Set font size for input fields */
-        }
-    </style>
-    <div class="dropdown-label">Industry <span style='color: red;'>*</span></div>
-""", unsafe_allow_html=True)
+role_name = st.text_input('Role Name:', placeholder='Enter the role you want')
 
-# Dropdown menu for Industry
-search_input1 = st.selectbox('', options1)
-st.write('')
-
-# Input fields with updated labels
-st.markdown('<div class="input-label">Company Name</div>', unsafe_allow_html=True)
-search_input2 = st.text_input('', placeholder='Enter company name')
-st.write('')
-
-st.markdown('<div class="input-label">Role Name</div>', unsafe_allow_html=True)
-search_input3 = st.text_input('', placeholder='Enter role name')
-st.write('')
+logger.info(f'Industry: {industry}')
+logger.info(f'Company Name: {company_name}')
+logger.info(f'Role Name: {role_name}')
 
 if st.button('Search', type='primary', use_container_width=True):
-    logger.info(f"Search terms: {search_input1}, {search_input2}, {search_input3}")
-
-    if not search_input1 or search_input1 == ' ':  # Validate dropdown selection
-        st.error("Industry field is required. Please select a value.")
+    if not industry:
+        st.error("Please select an industry to search.")
     else:
-        st.switch_page('pages/03_Co-op_List.py')
+        api_url = "http://api:4000/s/search_coops"
+        params = {
+            "industry": industry,
+            "company_name": company_name,
+            "role_name": role_name
+        }
+        try:
+            response = requests.get(api_url, params=params)
+            response.raise_for_status()  # Check for request errors
+            results = response.json()
+
+            # Store results in session state
+            st.session_state['search_results'] = results
+            st.session_state['search_params'] = params
+
+            st.switch_page("pages/03_Co-op_List.py")
+        except requests.exceptions.RequestException as e:
+            st.error(f"Failed to fetch search results: {e}")
