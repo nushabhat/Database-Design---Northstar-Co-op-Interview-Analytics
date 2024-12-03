@@ -1,4 +1,4 @@
-# drop database northstar;
+-- drop database northstar;
 CREATE DATABASE IF NOT EXISTS northstar;
 
 Use northstar;
@@ -150,7 +150,7 @@ VALUES
 ('Software Developer Intern', 3, 4.2, 1, 'Technology'),
 ('Data Analyst Intern', 2, 3.5, 2, 'Finance'),
 ('Mechanical Design Intern', 1, 3.8, 3, 'Engineering');
-
+   
 -- Insert data into Student_Notes
 INSERT INTO Student_Notes (StudentID, Summary, DatePublished, CoOpID, AdminID)
 VALUES

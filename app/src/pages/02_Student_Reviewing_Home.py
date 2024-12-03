@@ -3,10 +3,13 @@ import logging
 logger = logging.getLogger(__name__)
 
 import streamlit as st
+import requests
 from modules.nav import SideBarLinks
 import pandas as pd
 import os  # Importing the os module
 from datetime import datetime
+
+SideBarLinks()
 
 # Navigation to the experience submission page from another page
 st.title("Experience Submission")
@@ -14,7 +17,6 @@ st.title("Experience Submission")
 # Form for experience submission
 with st.form("experience_form"):
     st.header("Experience Submission")
-
     # Collecting Company Information
     company_name = st.text_input("1. Company Name")
     role_name = st.text_input("2. Role Name")
@@ -27,13 +29,15 @@ with st.form("experience_form"):
         ["Excel workbook", "Technical questions", "Leetcode questions", "Case Interview", "Behavioral"],
     )
 
-    # Difficulty rating
+   # Difficulty rating
     st.write("6. How difficult would you rate this interview?")
+
+    # Mapping the options to decimal values
     difficulty_rating = st.radio(
         "",
-        options=["😞", "😐", "😊"],
-        index=1,
-        horizontal=True
+        options=[1.0, 2.0, 3.0, 4.0, 5.0],  # Use decimal values instead of emojis
+        index=2,  # Default to middle value (3.0)
+        format_func=lambda x: f"{x}"  # Option label with value and description
     )
 
     # Elaboration on difficulty
@@ -59,31 +63,37 @@ with st.form("experience_form"):
     submitted = st.form_submit_button("Submit Experience")
 
     if submitted:
-        # Saving data to a CSV file
+        # Prepare data for API
         data = {
-            "Company Name": company_name,
-            "Role Name": role_name,
-            "Interview Date": interview_date,
-            "Industry": industry,
-            "Interview Types": ", ".join(interview_types),
-            "Difficulty Rating": difficulty_rating,
-            "Difficulty Elaboration": difficulty_elaboration,
-            "Graduation Year": graduation_year,
-            "Major": major,
-            "Minor": minor,
-            "GPA": gpa,
-            "Previous Internships": num_internships,
-            "Extracurriculars": num_extracurriculars,
-            "Academic Extracurriculars": num_academic_extracurriculars,
-            "Leadership Position": leadership_position,
-            "Submission Time": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+            "company_name": company_name,
+            "role_name": role_name,
+            "interview_date": interview_date,
+            "industry": industry,
+            "interview_types": interview_types,
+            "difficulty_rating": difficulty_rating,
+            "difficulty_elaboration": difficulty_elaboration,
+            "graduation_year": graduation_year,
+            "major": major,
+            "minor": minor,
+            "gpa": gpa,
+            "num_internships": num_internships,
+            "num_extracurriculars": num_extracurriculars,
+            "num_academic_extracurriculars": num_academic_extracurriculars,
+            "leadership_position": leadership_position,
+            "student_id": "12345"  # Replace with actual logic to fetch student ID
         }
 
-        # Append to CSV file if exists, otherwise create it
-        file_path = "experience_submissions.csv"
-        file_exists = os.path.exists(file_path)
+        # Define API endpoint
+        api_url = "http://api:4000/e/submit_experience"  # Replace with your Flask app URL
 
-        df = pd.DataFrame([data])
-        df.to_csv(file_path, mode='a', index=False, header=not file_exists)
+        try:
+            # Make POST request to the Flask API
+            response = requests.post(api_url, json=data)
 
-        st.success("Thank you! Your experience has been submitted.")
+            # Check response from the server
+            if response.status_code == 200:
+                st.success("Thank you! Your experience has been submitted successfully.")
+            else:
+                st.error(f"Failed to submit experience. Error: {response.json().get('error', 'Unknown error')}")
+        except Exception as e:
+            st.error(f"An error occurred while submitting your experience: {str(e)}")
