@@ -14,6 +14,19 @@ def AboutPageNav():
     st.sidebar.page_link("pages/30_About.py", label="About", icon="🧠")
 
 
+#### ------------------------ Co-op Advisor ------------------------
+def AdvisorNav(): 
+    st.sidebar.page_link("pages/01_Co-op_Advisor_Home.py", label = "Advisory Page", icon = "👩‍💼")
+
+
+#### ------------------------ Student Searching ------------------------
+def SearchStudentNav():
+    st.sidebar.page_link("pages/00_Co-op_Student_Home.py", label = "Student Searching Page", icon = "👀")
+
+#### ------------------------ Student Reviewing ------------------------
+def ReviewStudentNav():
+    st.sidebar.page_link("pages/02_Student_Reviewing_Home.py", label = "Student Reviewing Page", icon = "✍🏻")
+
 #### ------------------------ Examples for Role of pol_strat_advisor ------------------------
 def PolStratAdvHomeNav():
     st.sidebar.page_link(
@@ -78,14 +91,19 @@ def SideBarLinks(show_home=False):
     if st.session_state["authenticated"]:
 
         if st.session_state["role"] == "co-op_student":
-            PolStratAdvHomeNav()
-            WorldBankVizNav()
-            MapDemoNav()
+            # PolStratAdvHomeNav()
+            # WorldBankVizNav()
+            # MapDemoNav()
+            # AdvisorNav()
+            # ReviewStudentNav()
+            HomeNav()
 
         if st.session_state["role"] == "co-op_advisor":
-            PredictionNav()
-            ApiTestNav()
-            ClassificationNav()
+            # PredictionNav()
+            # ApiTestNav()
+            # ClassificationNav()
+            HomeNav()
+
 
         if st.session_state["role"] == "administrator":
             AdminPageNav()

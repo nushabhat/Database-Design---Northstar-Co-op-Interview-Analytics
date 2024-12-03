@@ -8,13 +8,14 @@ import pandas as pd
 import os  # Importing the os module
 from datetime import datetime
 
+SideBarLinks()
+
 # Navigation to the experience submission page from another page
 st.title("Experience Submission")
 
 # Form for experience submission
 with st.form("experience_form"):
     st.header("Experience Submission")
-
     # Collecting Company Information
     company_name = st.text_input("1. Company Name")
     role_name = st.text_input("2. Role Name")
