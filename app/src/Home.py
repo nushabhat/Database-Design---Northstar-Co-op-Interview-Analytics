@@ -81,45 +81,58 @@ st.write('### Welcome to NorthStar Technologies! As which user would you like to
 #     st.session_state['first_name'] = 'Raaya'
 #     st.switch_page('pages/02_Student_Reviewing_Home.py')
 
-# Custom CSS for styling buttons
+# CSS for styling buttons
 st.markdown(
     """
     <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cabin:wght@400;700&display=swap');
+
+    body {
+        font-family: 'Cabin', sans-serif;
+    }
+
     .custom-button {
+        display: block;
+        width: 300px; /* Button width */
+        height: 60px; /* Button height */
+        margin: 20px auto; /* Center and add spacing */
+        text-align: center;
+        font-size: 18px;
+        font-weight: 600;
+        border: none;
+        background-color: #f0f0f5; /* Original Streamlit button color */
+        color: #31333F; /* Text color */
+        border-radius: 10px; /* Rounded corners */
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .custom-button:hover {
+        background-color: #e0e0e5; /* Hover color */
+    }
+
+    .custom-container {
         display: flex;
         justify-content: center;
+        flex-direction: column;
         align-items: center;
-        width: 300px; /* Adjust button width */
-        height: 50px; /* Adjust button height */
-        margin: 10px auto; /* Center the button and add spacing */
-        font-size: 16px; /* Adjust font size */
-        font-weight: bold;
-        background-color: #007bff; /* Button color */
-        color: white;
-        border-radius: 8px; /* Rounded corners */
-        border: none;
-        cursor: pointer;
-        text-align: center;
-    }
-    .custom-button:hover {
-        background-color: #0056b3; /* Button hover color */
     }
     </style>
     """,
     unsafe_allow_html=True
 )
 
-# function to create styled buttons
+# Helper function to create styled buttons
 def custom_button(label, session_key, role, name, target_page):
-    if st.button(label):
+    if st.button(label, key=label):
         st.session_state['authenticated'] = True
         st.session_state['role'] = role
         st.session_state['first_name'] = name
         logger.info(f"Logging in as {role.capitalize()} Persona")
         st.switch_page(target_page)
 
-# buttons using styled containers
-st.markdown('<div class="custom-button-container">', unsafe_allow_html=True)
+# Button container
+st.markdown('<div class="custom-container">', unsafe_allow_html=True)
 custom_button("Act as Emma, a Student Looking for a Co-op", "authenticated", "co-op_student", "Emma", "pages/00_Co-op_Student_Home.py")
 custom_button("Act as Holly, a Co-op Advisor", "authenticated", "co-op_advisor", "Holly", "pages/01_Co-op_Advisor_Home.py")
 custom_button("Act as System Administrator", "authenticated", "administrator", "SysAdmin", "pages/20_Admin_Home.py")
