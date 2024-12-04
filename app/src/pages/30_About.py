@@ -2,6 +2,19 @@ import streamlit as st
 from streamlit_extras.app_logo import add_logo
 from modules.nav import SideBarLinks
 
+st.markdown(
+    """
+    <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cabin:wght@400;700&display=swap');
+
+    body {
+        font-family: 'Cabin', sans-serif;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
 SideBarLinks()
 
 st.write("# About this App")
