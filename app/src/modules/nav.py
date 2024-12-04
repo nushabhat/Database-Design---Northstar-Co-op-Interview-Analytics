@@ -94,19 +94,24 @@ def SideBarLinks(show_home=False):
             # PolStratAdvHomeNav()
             # WorldBankVizNav()
             # MapDemoNav()
-            # AdvisorNav()
-            # ReviewStudentNav()
+            AdvisorNav()
+            ReviewStudentNav()
+            AdminPageNav()
             HomeNav()
 
         if st.session_state["role"] == "co-op_advisor":
             # PredictionNav()
             # ApiTestNav()
             # ClassificationNav()
+            SearchStudentNav()
+            ReviewStudentNav()
+            AdminPageNav()
             HomeNav()
 
 
         if st.session_state["role"] == "administrator":
-            AdminPageNav()
+            SearchStudentNav()
+            
 
         if st.session_state["role"] == "student_reviewing":
             AdminPageNav()
