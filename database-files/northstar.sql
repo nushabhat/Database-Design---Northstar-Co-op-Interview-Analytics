@@ -149,7 +149,8 @@ INSERT INTO Co_op (RoleName, InterviewRounds, DifficultyRating, AdminID, Industr
 VALUES
 ('Software Developer Intern', 3, 4.2, 1, 'Technology'),
 ('Data Analyst Intern', 2, 3.5, 2, 'Finance'),
-('Mechanical Design Intern', 1, 3.8, 3, 'Engineering');
+('Mechanical Design Intern', 1, 3.8, 3, 'Engineering'),
+('Software Engineering Intern', 2, 3.5, 2, 'Finance');
    
 -- Insert data into Student_Notes
 INSERT INTO Student_Notes (StudentID, Summary, DatePublished, CoOpID, AdminID)
@@ -177,14 +178,16 @@ INSERT INTO Company (CompanyName, CompanyAddress, Sector)
 VALUES
 ('TechCorp', '123 Tech Street, Silicon Valley, CA', 'Technology'),
 ('FinancePlus', '456 Wall Street, New York, NY', 'Finance'),
-('MechWorks', '789 Industrial Road, Detroit, MI', 'Engineering');
+('MechWorks', '789 Industrial Road, Detroit, MI', 'Engineering'),
+('FinanceMinus', '456 Wall Street, New York, NY', 'Finance');
 
 -- Insert data into Company_Co_op
 INSERT INTO Company_Co_op (CompanyID, CoOpID)
 VALUES
 (1, 1),
 (2, 2),
-(3, 3);
+(3, 3),
+(4, 4);
 
 
 -- Drop all users created in the original code
