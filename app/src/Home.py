@@ -126,29 +126,30 @@ st.markdown(
 # Button container to center all buttons
 st.markdown('<div class="button-container">', unsafe_allow_html=True)
 
+# Buttons with rerun logic
 if st.button("Act as Emma, a Student Looking for a Co-op", key="emma"):
     st.session_state['authenticated'] = True
     st.session_state['role'] = 'co-op_student'
     st.session_state['first_name'] = 'Emma'
-    st.experimental_rerun()
-
-if st.button("Act as Raaya, a Student with Co-op Experience", key="raaya"):
-    st.session_state['authenticated'] = True
-    st.session_state['role'] = 'student_reviewing'
-    st.session_state['first_name'] = 'Raaya'
-    st.experimental_rerun()
+    st.rerun()
 
 if st.button("Act as Holly, a Co-op Advisor", key="holly"):
     st.session_state['authenticated'] = True
     st.session_state['role'] = 'co-op_advisor'
     st.session_state['first_name'] = 'Holly'
-    st.experimental_rerun()
+    st.rerun()
 
 if st.button("Act as System Administrator", key="admin"):
     st.session_state['authenticated'] = True
     st.session_state['role'] = 'administrator'
     st.session_state['first_name'] = 'SysAdmin'
-    st.experimental_rerun()
+    st.rerun()
+
+if st.button("Act as Raaya, a Student with Co-op Experience", key="raaya"):
+    st.session_state['authenticated'] = True
+    st.session_state['role'] = 'student_reviewing'
+    st.session_state['first_name'] = 'Raaya'
+    st.rerun()
 
 # Close the button container div
 st.markdown('</div>', unsafe_allow_html=True)
