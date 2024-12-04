@@ -13,10 +13,36 @@ st.title("Search for Co-ops")
 
 col1, col2 = st.columns(2)
 
+# Define the API endpoint
+API_URL = "http://api:4000/s/industries"
+
+
+# Fetch industries from the API
+def get_industries():
+    try:
+        print("Hello", flush=True)
+        response = requests.get(API_URL,timeout=10)
+        print("API request successful", flush=True)
+        response.raise_for_status()
+        print("Raise for status", flush=True)
+        industries = response.json()
+        print("Response saved in", flush=True)
+        return [""] + industries
+    except requests.exceptions.RequestException as e:
+        st.error(f"Error fetching industries: {e}")
+        st.text(f"Debug Info: {e.__class__.__name__} - {e}")
+        return [""]
+
+
+
+# Get industries dynamically
+industries = get_industries()
+#st.write(industries)
+
 with col1:
     industry = st.selectbox(
         'Industry:',
-        options=['', 'Tech', 'Healthcare', 'Finance', 'Education'],  # Example options
+        options=industries,  # Dynamically populated options
         help='Select the industry you are interested in'
     )
 with col2:
@@ -53,3 +79,4 @@ if st.button('Search', type='primary', use_container_width=True):
             st.switch_page("pages/03_Co-op_List.py")
         except requests.exceptions.RequestException as e:
             st.error(f"Failed to fetch search results: {e}")
+

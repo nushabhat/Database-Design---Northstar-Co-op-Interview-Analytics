@@ -1,5 +1,6 @@
 from flask import Blueprint, request, jsonify, make_response, current_app
 from backend.db_connection import db
+import logging 
 
 # Create a new Blueprint object for co-op routes
 students = Blueprint('students', __name__)
@@ -101,3 +102,21 @@ def get_coop_details(coop_id):
         current_app.logger.error(f"Error fetching co-op details: {str(e)}")
         return jsonify({"error": "Internal server error"}), 500
 
+
+@students.route('/industries', methods=['GET'])
+def get_unique_industries():
+    try:
+        cursor = db.get_db().cursor()
+        query = "SELECT DISTINCT Industry FROM Co_op ORDER BY Industry;"
+        cursor.execute(query)
+        results = cursor.fetchall()
+        print(results, flush=True)
+        industries = [item['Industry'] for item in results]
+        #print(industries, flush=True)
+
+        return jsonify(industries)
+    
+    except Exception as e:
+        logging.error(f"Error: {e}")
+        return jsonify({'error exception': str(e)}), 500
+    

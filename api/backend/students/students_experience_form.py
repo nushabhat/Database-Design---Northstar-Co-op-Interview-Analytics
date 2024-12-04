@@ -23,7 +23,7 @@ def submit_experience():
         missing_fields = [field for field in required_fields if not data.get(field)]
         if missing_fields:
             return make_response(
-                jsonify({"error": f"The following fields are required but missing: {', '.join(missing_fields)}"}),
+                jsonify({"error": f"Please complete the following fields before submitting: {', '.join(missing_fields)}"}),
                 400
             )
         # Extract necessary fields from the request
