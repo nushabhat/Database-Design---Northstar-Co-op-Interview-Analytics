@@ -91,50 +91,66 @@ st.markdown(
         font-family: 'Cabin', sans-serif;
     }
 
+    .button-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin-top: 30px;
+    }
+
     .custom-button {
         display: block;
-        width: 300px; /* Button width */
-        height: 60px; /* Button height */
-        margin: 20px auto; /* Center and add spacing */
-        text-align: center;
+        width: 350px; /* Button width */
+        height: 80px; /* Button height */
+        margin: 15px 0; /* Spacing between buttons */
         font-size: 18px;
-        font-weight: 600;
+        font-weight: bold;
+        color: white;
+        background-color: #007bff; /* Streamlit blue */
         border: none;
-        background-color: #f0f0f5; /* Original Streamlit button color */
-        color: #31333F; /* Text color */
-        border-radius: 10px; /* Rounded corners */
+        border-radius: 10px;
+        text-align: center;
+        line-height: 80px; /* Centers text vertically */
         cursor: pointer;
         transition: background-color 0.3s ease;
     }
 
     .custom-button:hover {
-        background-color: #e0e0e5; /* Hover color */
-    }
-
-    .custom-container {
-        display: flex;
-        justify-content: center;
-        flex-direction: column;
-        align-items: center;
+        background-color: #0056b3; /* Hover color */
     }
     </style>
     """,
     unsafe_allow_html=True
 )
 
-# Helper function to create styled buttons
-def custom_button(label, session_key, role, name, target_page):
-    if st.button(label, key=label):
-        st.session_state['authenticated'] = True
-        st.session_state['role'] = role
-        st.session_state['first_name'] = name
-        logger.info(f"Logging in as {role.capitalize()} Persona")
-        st.switch_page(target_page)
+# Button container to center all buttons
+st.markdown('<div class="button-container">', unsafe_allow_html=True)
 
-# Button container
-st.markdown('<div class="custom-container">', unsafe_allow_html=True)
-custom_button("Act as Emma, a Student Looking for a Co-op", "authenticated", "co-op_student", "Emma", "pages/00_Co-op_Student_Home.py")
-custom_button("Act as Holly, a Co-op Advisor", "authenticated", "co-op_advisor", "Holly", "pages/01_Co-op_Advisor_Home.py")
-custom_button("Act as System Administrator", "authenticated", "administrator", "SysAdmin", "pages/20_Admin_Home.py")
-custom_button("Act as Raaya, a Student with Co-op Experience", "authenticated", "student_reviewing", "Raaya", "pages/02_Student_Reviewing_Home.py")
+# Custom buttons with individual click handling
+if st.button("Act as Emma, a Student Looking for a Co-op", key="emma"):
+    st.session_state['authenticated'] = True
+    st.session_state['role'] = 'co-op_student'
+    st.session_state['first_name'] = 'Emma'
+    st.experimental_rerun()
+
+if st.button("Act as Holly, a Co-op Advisor", key="holly"):
+    st.session_state['authenticated'] = True
+    st.session_state['role'] = 'co-op_advisor'
+    st.session_state['first_name'] = 'Holly'
+    st.experimental_rerun()
+
+if st.button("Act as System Administrator", key="admin"):
+    st.session_state['authenticated'] = True
+    st.session_state['role'] = 'administrator'
+    st.session_state['first_name'] = 'SysAdmin'
+    st.experimental_rerun()
+
+if st.button("Act as Raaya, a Student with Co-op Experience", key="raaya"):
+    st.session_state['authenticated'] = True
+    st.session_state['role'] = 'student_reviewing'
+    st.session_state['first_name'] = 'Raaya'
+    st.experimental_rerun()
+
+# Close the button container div
 st.markdown('</div>', unsafe_allow_html=True)
