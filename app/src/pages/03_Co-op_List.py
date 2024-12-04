@@ -32,17 +32,34 @@ else:
     st.markdown(criteria_html, unsafe_allow_html=True)
     # Display search results in a nicely formatted table
     results = st.session_state['search_results']
-    
+
     if results:
-        st.subheader("Results Found")
-        # Convert results to a DataFrame for better display
+        st.subheader("Results Found:")
+        
+        st.divider() 
+
+
+        # Convert results to a DataFrame 
         results_df = pd.DataFrame(results)
-        st.dataframe(results_df)
+        
+        # Render a table with buttons for each row
+        for _, row in results_df.iterrows():
+            co_op_id = row['CoOpID']
+            company_name = row['CompanyName']
+            role_name = row['RoleName']
+            
+            # Display co-op details
+            st.markdown(f"<h3><strong>{company_name}</strong> - {role_name}</h3>", unsafe_allow_html=True)
+            
+            # Create a button that redirects to a detailed page
+            if st.button(f"View Details", type = 'secondary', key=co_op_id):
+                st.session_state['selected_co_op_id'] = co_op_id
+                st.switch_page("pages/04_Co-op_Details.py")
+                
+            st.divider() 
     else:
         st.info("No results found for your search criteria.")
 
-    # Action buttons
-    st.divider()
     col1, _ = st.columns(2)
     
     with col1:

@@ -42,3 +42,62 @@ def get_coops():
     response.status_code = 200
     return response
 
+@students.route('/get_coop_details/<int:coop_id>', methods=['GET'])
+def get_coop_details(coop_id):
+    cursor = db.get_db().cursor()
+    
+    # Query for co-op details including company information
+    coop_query = '''
+        SELECT 
+            c.CoOpID,
+            c.RoleName,
+            c.Industry,
+            c.InterviewRounds,
+            c.DifficultyRating,
+            comp.CompanyName,
+            comp.CompanyAddress,
+            comp.Sector
+        FROM Co_op c
+        LEFT JOIN Company_Co_op cc ON c.CoOpID = cc.CoOpID
+        LEFT JOIN Company comp ON cc.CompanyID = comp.CompanyID
+        WHERE c.CoOpID = %s
+    '''
+    
+    # Query for all notes associated with this co-op
+    notes_query = '''
+        SELECT 
+            n.NoteID,
+            n.Summary,
+            n.DatePublished,
+            s.Name as StudentName,
+            a.Name as AdminName
+        FROM Student_Notes n
+        LEFT JOIN Student s ON n.StudentID = s.ID
+        LEFT JOIN Administrator a ON n.AdminID = a.ID
+        WHERE n.CoOpID = %s
+        ORDER BY n.DatePublished DESC
+    '''
+    
+    try:
+        # Execute queries
+        cursor.execute(coop_query, (coop_id,))
+        coop_details = cursor.fetchone()
+        
+        if not coop_details:
+            return jsonify({"error": "Co-op not found"}), 404
+            
+        cursor.execute(notes_query, (coop_id,))
+        notes = cursor.fetchall()
+        
+        # Combine the results
+        response = {
+            "coop_details": coop_details,
+            "notes": notes
+        }
+        
+        return jsonify(response), 200
+        
+    except Exception as e:
+        current_app.logger.error(f"Error fetching co-op details: {str(e)}")
+        return jsonify({"error": "Internal server error"}), 500
+
