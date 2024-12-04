@@ -3,6 +3,7 @@ import os
 import pandas as pd
 import streamlit as st
 from modules.nav import SideBarLinks
+from datetime import datetime
 
 # Logging setup
 logger = logging.getLogger(__name__)
@@ -53,7 +54,7 @@ else:
                 questions_df.drop(index, inplace=True)
                 questions_df.reset_index(drop=True, inplace=True)
                 questions_df.to_csv(questions_file, index=False)
-                st.experimental_rerun()
+                st.experimental_set_query_params(refresh=str(datetime.now()))  # Refresh after deletion
 
 # Adding or Editing Questions
 st.subheader("Add or Edit Survey Question")
@@ -89,30 +90,35 @@ if question_type in ["multiselect", "radio"]:
 
 # Save or Update button for questions
 if st.button("Save Question"):
-    if question_type in ["multiselect", "radio"] and not options:
-        st.error("Please provide options for multiselect or radio questions.")
+    if not question:
+        st.error("Question cannot be empty.")
+    elif question_type in ["multiselect", "radio"] and not options.strip():
+        st.error("Options cannot be empty for multiselect or radio questions.")
     else:
         # Prepare new question data
         new_question = {
             "Question": question,
             "Type": question_type,
-            "Options": options.strip() if options else ""
+            "Options": options.strip() if question_type in ["multiselect", "radio"] else ""
         }
 
-        # Save or update the question
         if edit_index is not None:
+            # If editing, update the existing question
             questions_df.loc[edit_index] = new_question
-            del st.session_state["edit_index"]
+            del st.session_state["edit_index"]  # Clear the edit state
         else:
+            # If adding a new question, append it to the DataFrame
             questions_df = pd.concat([questions_df, pd.DataFrame([new_question])], ignore_index=True)
 
-        # Save to CSV and reload
+        # Save the updated DataFrame to the CSV file
         questions_df.to_csv(questions_file, index=False)
+
+        # Show success message and refresh the page
         st.success("Question saved successfully.")
-        st.experimental_rerun()
+        st.experimental_set_query_params(refresh=str(datetime.now()))  # Refresh after saving
 
 # Clear Edit State button (Optional)
 if "edit_index" in st.session_state:
     if st.button("Cancel Edit"):
         del st.session_state["edit_index"]
-        st.experimental_rerun()
+        st.experimental_set_query_params(refresh=str(datetime.now()))  # Refresh after canceling edit

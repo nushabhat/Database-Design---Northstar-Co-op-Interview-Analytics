@@ -1,18 +1,31 @@
-# home page for students that would like to review a co-op
+# Home page for students that would like to review a co-op
 import logging
-logger = logging.getLogger(__name__)
-
+import os
+import pandas as pd
 import streamlit as st
 import requests
 from modules.nav import SideBarLinks
-import pandas as pd
-import os  # Importing the os module
 from datetime import datetime
 
 SideBarLinks()
 
 # Navigation to the experience submission page from another page
+# Logging setup
+logger = logging.getLogger(__name__)
+
+# Set up navigation
+SideBarLinks()
+
+# Title for the experience submission page
 st.title("Experience Submission")
+
+# Load survey questions from CSV
+questions_file = "survey_questions.csv"
+if os.path.exists(questions_file):
+    questions_df = pd.read_csv(questions_file)
+else:
+    st.error("Survey questions file not found.")
+    st.stop()
 
 # Form for experience submission
 with st.form("experience_form"):
@@ -23,11 +36,14 @@ with st.form("experience_form"):
     interview_date = st.text_input("3. Month/Year of Interview (e.g., Oct 2024)")
     industry = st.text_input("4. Company Industry")
 
-    # Interview types selection
-    interview_types = st.multiselect(
-        "5. Please select interview types",
-        ["Excel workbook", "Technical questions", "Leetcode questions", "Case Interview", "Behavioral"],
-    )
+    # Dictionary to store user responses
+    responses = {}
+
+    # Dynamically render survey questions
+    for index, row in questions_df.iterrows():
+        question = row["Question"]
+        question_type = row["Type"]
+        options = row["Options"]
 
    # Difficulty rating
     st.write("6. How difficult would you rate this interview?")
@@ -39,27 +55,19 @@ with st.form("experience_form"):
         index=2,  # Default to middle value (3.0)
         format_func=lambda x: f"{x}"  # Option label with value and description
     )
+        # Render input fields based on the question type
+        if question_type == "text":
+            responses[question] = st.text_input(f"{index + 1}. {question}")
+        elif question_type == "number":
+            responses[question] = st.number_input(f"{index + 1}. {question}", min_value=0, step=1)
+        elif question_type == "multiselect":
+            options_list = options.split(",") if options else []
+            responses[question] = st.multiselect(f"{index + 1}. {question}", options=options_list)
+        elif question_type == "radio":
+            options_list = options.split(",") if options else []
+            responses[question] = st.radio(f"{index + 1}. {question}", options=options_list, horizontal=True)
 
-    # Elaboration on difficulty
-    difficulty_elaboration = st.text_area("7. Please elaborate on your rating in question 6")
-
-    # Academic statistics
-    st.write("8. Please provide the following academic statistics (answers will be anonymous):")
-
-    graduation_year = st.text_input("• Graduation Year (e.g., 2025)")
-    major = st.text_input("• Major(s)")
-    minor = st.text_input("• Minor(s)")
-    gpa = st.text_input("• GPA")
-    num_internships = st.number_input("• Quantity of previous co-ops/internships:", min_value=0, step=1)
-    num_extracurriculars = st.number_input("• Quantity of extracurriculars:", min_value=0, step=1)
-    num_academic_extracurriculars = st.number_input("• Quantity of academic extracurriculars:", min_value=0, step=1)
-    leadership_position = st.radio(
-        "• Do you hold leadership positions in these extracurriculars?",
-        options=["Yes", "No"],
-        horizontal=True
-    )
-
-    # Form submission
+    # Form submission button
     submitted = st.form_submit_button("Submit Experience")
 
     if submitted:
@@ -89,6 +97,16 @@ with st.form("experience_form"):
         try:
             # Make POST request to the Flask API
             response = requests.post(api_url, json=data)
+        # Add a timestamp for the submission
+        responses["Submission Time"] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
+        # Save data to a CSV file
+        file_path = "experience_submissions.csv"
+        file_exists = os.path.exists(file_path)
+
+        # Convert responses to a DataFrame and save it
+        df = pd.DataFrame([responses])
+        df.to_csv(file_path, mode='a', index=False, header=not file_exists)
 
             # Check response from the server
             if response.status_code == 200:

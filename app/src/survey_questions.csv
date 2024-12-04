@@ -1,0 +1,15 @@
+Question,Type,Options
+Company Name,text,
+Role Name,text,
+"Month/Year of Interview (e.g., Oct 2024)",text,
+Company Industry,text,
+Please select interview types,multiselect,"Excel workbook, Technical questions, Leetcode questions, Case Interview, Behavioral"
+How difficult would you rate this interview?,radio,"😞, 😐, 😊"
+Please elaborate on your rating in question 6,text,
+"Graduation Year (e.g., 2025)",text,
+Major(s),text,
+GPA,text,
+Quantity of previous co-ops/internships,number,
+Quantity of extracurriculars,number,
+Quantity of academic extracurriculars,number,
+Do you hold leadership positions in these extracurriculars?,radio,"Yes, No"
