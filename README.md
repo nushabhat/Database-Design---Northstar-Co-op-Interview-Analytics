@@ -1,6 +1,6 @@
 # CS3200 - Database Design (Fall 2024)
 ## Final Project Repository
-###
+
 Team Members: Quillian Alewine, Sarah Cooper, San Yan, Nusha Bhat, Lucia Yaniz
 Project Name: NorthStar Technologies
 Due 6 December 2024 @ 12pm EST
