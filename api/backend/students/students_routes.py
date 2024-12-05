@@ -12,12 +12,13 @@ def get_coops():
     role_name = request.args.get('role_name')
 
     query = '''
-        SELECT 
+        SELECT DISTINCT
             Co_op.CoOpID, 
             Co_op.RoleName, 
             Co_op.Industry, 
             Co_op.DifficultyRating, 
-            Company.CompanyName
+            Company.CompanyName,
+            Company.CompanyID
         FROM Co_op
         LEFT JOIN Company_Co_op ON Co_op.CoOpID = Company_Co_op.CoOpID
         LEFT JOIN Company ON Company_Co_op.CompanyID = Company.CompanyID
@@ -43,10 +44,12 @@ def get_coops():
     response.status_code = 200
     return response
 
-@students.route('/get_coop_details/<int:coop_id>', methods=['GET'])
-def get_coop_details(coop_id):
+@students.route('/get_coop_details/<combined_id>', methods=['GET'])
+def get_coop_details(combined_id):
+ 
     cursor = db.get_db().cursor()
-    
+
+    company_id, coop_id = map(lambda x: int(float(x)), combined_id.split('_'))
     # Query for co-op details including company information
     coop_query = '''
         SELECT 
@@ -61,7 +64,7 @@ def get_coop_details(coop_id):
         FROM Co_op c
         LEFT JOIN Company_Co_op cc ON c.CoOpID = cc.CoOpID
         LEFT JOIN Company comp ON cc.CompanyID = comp.CompanyID
-        WHERE c.CoOpID = %s
+        WHERE c.CoOpID = %s AND cc.CompanyID = %s
     '''
     
     # Query for all notes associated with this co-op
@@ -80,20 +83,39 @@ def get_coop_details(coop_id):
     '''
     
     try:
-        # Execute queries
-        cursor.execute(coop_query, (coop_id,))
+        # Execute the co-op details query
+        cursor.execute(coop_query, (coop_id, company_id))
         coop_details = cursor.fetchone()
-        
         if not coop_details:
             return jsonify({"error": "Co-op not found"}), 404
             
+        # Execute the notes query
         cursor.execute(notes_query, (coop_id,))
         notes = cursor.fetchall()
         
-        # Combine the results
+
+        # Combine the results into a JSON response
         response = {
-            "coop_details": coop_details,
-            "notes": notes
+            "coop_details": {
+                "CoOpID": coop_details['CoOpID'],
+                "RoleName": coop_details['RoleName'],
+                "Industry": coop_details['Industry'],
+                "InterviewRounds": coop_details['InterviewRounds'],
+                "DifficultyRating": coop_details['DifficultyRating'],
+                "CompanyName": coop_details['CompanyName'] if 'CompanyName' in coop_details else '',
+                "CompanyAddress": coop_details['CompanyAddress'] if 'CompanyAddress' in coop_details else '',
+                "Sector": coop_details['Sector'] if 'Sector' in coop_details else '',
+            },
+            "notes": [
+                {
+                    "NoteID": note['NoteID'],
+                    "Summary": note['Summary'],
+                    "DatePublished": note['DatePublished'],
+                    "StudentName": note['StudentName'],
+                    "AdminName": note['AdminName'],
+                }
+                for note in notes
+            ]
         }
         
         return jsonify(response), 200

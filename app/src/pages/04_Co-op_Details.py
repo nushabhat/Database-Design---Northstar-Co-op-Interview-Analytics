@@ -11,13 +11,13 @@ SideBarLinks()
 st.title("Co-op Details")
 
 # Check if a co-op was selected
-if 'selected_co_op_id' not in st.session_state:
+if 'selected_company_id_co_op_id' not in st.session_state:
     st.error("No co-op selected. Please select a co-op from the search results.")
     if st.button("Back to Search"):
         st.switch_page("pages/03_Co-op_List.py")
 else:
     # Fetch co-op details from API
-    response = requests.get(f"http://api:4000/s/get_coop_details/{st.session_state['selected_co_op_id']}")
+    response = requests.get(f"http://api:4000/s/get_coop_details/{st.session_state['selected_company_id_co_op_id']}")
     
     if response.status_code == 200:
         data = response.json()
