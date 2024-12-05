@@ -15,8 +15,8 @@ SideBarLinks()
 st.title('System Admin Home Page')
 
 # Button to navigate to ML Model Management page
-if st.button('Update ML Models', type='primary', use_container_width=True):
-    st.switch_page('pages/21_ML_Model_Mgmt.py')
+if st.button('Delete graduated student', type='primary', use_container_width=True):
+    st.switch_page('pages/21_delete_student.py')
 
 # Button to navigate to Survey Questions Management page
 if st.button('Update Survey Questions', type='primary', use_container_width=True):

@@ -142,3 +142,21 @@ def get_unique_industries():
         logging.error(f"Error: {e}")
         return jsonify({'error exception': str(e)}), 500
     
+
+@students.route('/get_students', methods=['GET'])
+def get_students():
+    try:
+        # Query to fetch ID and UserName for all students
+        query = "SELECT ID, UserName FROM Student ORDER BY ID"
+        cursor = db.get_db().cursor()
+        cursor.execute(query)
+        results = cursor.fetchall()  # Fetch all results
+        
+        # Structure results as a list of dictionaries
+        students_list = [{'ID': row['ID'], 'UserName': row['UserName']} for row in results]
+        
+        return jsonify(students_list), 200
+
+    except Exception as e:
+        logging.error(f"Error: {e}")
+        return jsonify({'error': str(e)}), 500
