@@ -36,25 +36,13 @@ with st.form("experience_form"):
     # Dictionary to store user responses
     responses = {}
 
-    # Dynamically render survey questions
-    for index, row in questions_df.iterrows():
-        question = row["Question"]
-        question_type = row["Type"]
-        options = row["Options"]
+    # Interview types selection
+    interview_types = st.multiselect(
+        "5. Please select interview types",
+        ["Excel workbook", "Technical questions", "Leetcode questions", "Case Interview", "Behavioral"],
+    )
 
-        # Render input fields based on the question type
-        if question_type == "text":
-            responses[question] = st.text_input(f"{index + 1}. {question}")
-        elif question_type == "number":
-            responses[question] = st.number_input(f"{index + 1}. {question}", min_value=0, step=1)
-        elif question_type == "multiselect":
-            options_list = options.split(",") if options else []
-            responses[question] = st.multiselect(f"{index + 1}. {question}", options=options_list)
-        elif question_type == "radio":
-            options_list = options.split(",") if options else []
-            responses[question] = st.radio(f"{index + 1}. {question}", options=options_list, horizontal=True)
-
-    # Difficulty rating
+        # Difficulty rating
     st.write("6. How difficult would you rate this interview?")
 
     # Mapping the options to decimal values
@@ -63,6 +51,26 @@ with st.form("experience_form"):
         options=[1.0, 2.0, 3.0, 4.0, 5.0],  # Use decimal values instead of emojis
         index=2,  # Default to middle value (3.0)
         format_func=lambda x: f"{x}"  # Option label with value and description
+    )
+
+
+    # Elaboration on difficulty
+    difficulty_elaboration = st.text_area("7. Please elaborate on your rating in question 6")
+
+    # Academic statistics
+    st.write("8. Please provide the following academic statistics (answers will be anonymous):")
+
+    graduation_year = st.text_input("• Graduation Year (e.g., 2025)")
+    major = st.text_input("• Major(s)")
+    minor = st.text_input("• Minor(s)")
+    gpa = st.text_input("• GPA")
+    num_internships = st.number_input("• Quantity of previous co-ops/internships:", min_value=0, step=1)
+    num_extracurriculars = st.number_input("• Quantity of extracurriculars:", min_value=0, step=1)
+    num_academic_extracurriculars = st.number_input("• Quantity of academic extracurriculars:", min_value=0, step=1)
+    leadership_position = st.radio(
+        "• Do you hold leadership positions in these extracurriculars?",
+        options=["Yes", "No"],
+        horizontal=True
     )
 
     # Form submission button
@@ -75,9 +83,20 @@ with st.form("experience_form"):
             "role_name": role_name,
             "interview_date": interview_date,
             "industry": industry,
+            "interview_types": interview_types,
             "difficulty_rating": difficulty_rating,
-            "responses": responses,  # Assuming `responses` includes the user input for questions
+            "difficulty_elaboration": difficulty_elaboration,
+            "graduation_year": graduation_year,
+            "major": major,
+            "minor": minor,
+            "gpa": gpa,
+            "num_internships": num_internships,
+            "num_extracurriculars": num_extracurriculars,
+            "num_academic_extracurriculars": num_academic_extracurriculars,
+            "leadership_position": leadership_position,
+            "student_id": "12345"  # Replace with actual logic to fetch student ID
         }
+
 
         # Define API endpoint
         api_url = "http://api:4000/e/submit_experience"  # Replace with your Flask app URL
