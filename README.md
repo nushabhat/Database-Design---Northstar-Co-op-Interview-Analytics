@@ -1,10 +1,10 @@
 # CS3200 - Database Design (Fall 2024)
 ## Final Project Repository
 
-Team Members: Quillian Alewine, Sarah Cooper, San Yan, Nusha Bhat, Lucia Yaniz
-Project Name: NorthStar Technologies
-Due 6 December 2024 @ 12pm EST
-LINK TO YOUTUBE VIDEO (6-9 min)
+### Team Members: Quillian Alewine, Sarah Cooper, San Yan, Nusha Bhat, Lucia Yaniz
+### Project Name: NorthStar Technologies
+### Due 6 December 2024 @ 12pm EST
+### LINK TO YOUTUBE VIDEO (6-9 min)
 
 Project Overview:
 NorthStar is a data-driven app that streamlines interview preparation for students applying for co-op roles. It provides a centralized platform with detailed insights into interview experiences, peer connections for tips, and filters by industry, company, or role. Advisors and administrators can also leverage the platform to support students effectively.
