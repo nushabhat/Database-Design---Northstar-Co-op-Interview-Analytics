@@ -67,7 +67,9 @@ def AdminPageNav():
     st.sidebar.page_link(
         "pages/21_ML_Model_Mgmt.py", label="ML Model Management", icon="🏢"
     )
-
+    st.sidebar.page_link(
+        "pages/22_Survey_Questions_Mgmt.py", label="Manage Survey Questions", icon="📋"
+    )
 
 # --------------------------------Links Function -----------------------------------------------
 def SideBarLinks(show_home=False):
