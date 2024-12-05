@@ -16,7 +16,13 @@ def AboutPageNav():
 
 #### ------------------------ Co-op Advisor ------------------------
 def AdvisorNav(): 
-    st.sidebar.page_link("pages/01_Co-op_Advisor_Home.py", label = "Advisory Page", icon = "👩‍💼")
+    # Using a page link, no changes needed here, it's fine
+    st.sidebar.page_link("pages/01_Co-op_Advisor_Home.py", label="Advisory Page", icon="👩‍💼")
+
+    # Example: if you had a button, ensure it's unique with a key
+    if st.sidebar.button("Logout", key="advisor_logout_button"):
+        # Your logout logic here
+        pass
 
 
 #### ------------------------ Student Searching ------------------------
@@ -25,7 +31,14 @@ def SearchStudentNav():
 
 #### ------------------------ Student Reviewing ------------------------
 def ReviewStudentNav():
-    st.sidebar.page_link("pages/02_Student_Reviewing_Home.py", label = "Student Reviewing Page", icon = "✍🏻")
+    # Link to the student reviewing page
+    st.sidebar.page_link("pages/02_Student_Reviewing_Home.py", label="Student Reviewing Page", icon="✍🏻")
+    
+    # Example of adding a Logout button with a unique key
+    if st.sidebar.button("Logout", key="review_student_logout_button"):
+        # Your logout logic here
+        pass
+
 
 #### ------------------------ Examples for Role of pol_strat_advisor ------------------------
 def PolStratAdvHomeNav():

@@ -16,7 +16,7 @@ st.title("User Management")
 
 # Function to connect to the SQLite database and retrieve user data
 def get_users_data():
-    db_path = "database-files/northStar.sql"  # Path to the SQLite database file
+    db_path = "database-files/northstar.sql"  # Path to the SQLite database file
 
     # Connect to the database
     conn = sqlite3.connect(db_path)
