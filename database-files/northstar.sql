@@ -24,7 +24,7 @@ CREATE TABLE IF NOT EXISTS Administrator (
 -- Table: Student
 CREATE TABLE IF NOT EXISTS Student (
    ID INT PRIMARY KEY AUTO_INCREMENT,
-   GraduationYear INT,
+   GraduationYear VARCHAR(50),
    Major VARCHAR(50),
    Minor VARCHAR(50),
    EmailAddress VARCHAR(100),
