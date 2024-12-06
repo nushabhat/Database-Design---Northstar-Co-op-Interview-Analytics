@@ -2,18 +2,18 @@ import streamlit as st
 from streamlit_extras.app_logo import add_logo
 from modules.nav import SideBarLinks
 
-st.markdown(
-    """
-    <style>
-    @import url('https://fonts.googleapis.com/css2?family=Cabin:wght@400;700&display=swap');
+custom_css = """
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap'); /* Replace with your preferred font */
 
-    body {
-        font-family: 'Cabin', sans-serif;
-    }
-    </style>
-    """,
-    unsafe_allow_html=True
-)
+html, body, [class*="css"] {
+    font-family: 'Roboto', sans-serif; /* Apply font globally */
+}
+</style>
+"""
+
+# Inject the CSS
+st.markdown(custom_css, unsafe_allow_html=True)
 
 SideBarLinks()
 
