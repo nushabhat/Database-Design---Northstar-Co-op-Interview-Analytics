@@ -11,7 +11,8 @@ Quick review of the routes (code) you’ve created and how you’ve organized th
 Demo of the front-end Streamlit application your team has created. (~ 5 mins)  
 Be sure to show that for any POST/PUT/DELETE routes, the database reflects the results of the operation by looking at the data in DataGrip. 
 
-**Project Overview** /n
+**Project Overview** 
+
 NorthStar is a data-driven app that streamlines interview preparation for students applying for co-op roles. It provides a centralized platform with detailed insights into interview experiences, peer connections for tips, and filters by industry, company, or role. Advisors and administrators can also leverage the platform to support students effectively.
 
 ## User Personas
