@@ -13,74 +13,45 @@ def HomeNav():
 def AboutPageNav():
     st.sidebar.page_link("pages/30_About.py", label="About", icon="🧠")
 
+#### ------------------------ log out ------------------------
+# Example: if you had a button, ensure it's unique with a key
+def LogOut():
+    if st.sidebar.button("Logout", key="advisor_logout_button"):
+        # Your logout logic here
+        pass
+
 
 #### ------------------------ Co-op Advisor ------------------------
 def AdvisorNav(): 
     # Using a page link, no changes needed here, it's fine
     st.sidebar.page_link("pages/01_Co-op_Advisor_Home.py", label="Advisory Page", icon="👩‍💼")
 
-    # Example: if you had a button, ensure it's unique with a key
-    if st.sidebar.button("Logout", key="advisor_logout_button"):
-        # Your logout logic here
-        pass
-
 
 #### ------------------------ Student Searching ------------------------
 def SearchStudentNav():
     st.sidebar.page_link("pages/00_Co-op_Student_Home.py", label = "Student Searching Page", icon = "👀")
+def CoopList(): 
+    st.sidebar.page_link("pages/03_Co-op_List.py", label = "Co-op List", icon = "👀")
+def CoopDetails():  
+    st.sidebar.page_link("pages/04_Co-op_Details.py", label = "Co-op Details", icon = "👀")
+    
 
 #### ------------------------ Student Reviewing ------------------------
 def ReviewStudentNav():
     # Link to the student reviewing page
     st.sidebar.page_link("pages/02_Student_Reviewing_Home.py", label="Student Reviewing Page", icon="✍🏻")
     
-    # Example of adding a Logout button with a unique key
-    if st.sidebar.button("Logout", key="review_student_logout_button"):
-        # Your logout logic here
-        pass
-
-
-#### ------------------------ Examples for Role of pol_strat_advisor ------------------------
-def PolStratAdvHomeNav():
-    st.sidebar.page_link(
-        "pages/00_Pol_Strat_Home.py", label="Political Strategist Home", icon="👤"
-    )
-
-
-def WorldBankVizNav():
-    st.sidebar.page_link(
-        "pages/01_World_Bank_Viz.py", label="World Bank Visualization", icon="🏦"
-    )
-
-
-def MapDemoNav():
-    st.sidebar.page_link("pages/02_Map_Demo.py", label="Map Demonstration", icon="🗺️")
-
-
-## ------------------------ Examples for Role of usaid_worker ------------------------
-def ApiTestNav():
-    st.sidebar.page_link("pages/12_API_Test.py", label="Test the API", icon="🛜")
-
-
-def PredictionNav():
-    st.sidebar.page_link(
-        "pages/11_Prediction.py", label="Regression Prediction", icon="📈"
-    )
-
-
-def ClassificationNav():
-    st.sidebar.page_link(
-        "pages/13_Classification.py", label="Classification Demo", icon="🌺"
-    )
 
 
 #### ------------------------ System Admin Role ------------------------
 def AdminPageNav():
     st.sidebar.page_link("pages/20_Admin_Home.py", label="System Admin", icon="🖥️")
-
-    st.sidebar.page_link(
-        "pages/22_Survey_Questions_Mgmt.py", label="Manage Survey Questions", icon="📋"
-    )
+def DeleteStudent():
+    st.sidebar.page_link("pages/21_delete_student.py", label="Delete Users", icon="🖥️")
+def ManageSurvey():
+    st.sidebar.page_link("pages/22_Survey_Questions_Mgmt.py", label="Manage Survey Questions", icon="📋")
+def ManageUsers():
+    st.sidebar.page_link("pages/23_Admin_Users_Mgmt.py", label="Manage Users", icon="📋")
 
 # --------------------------------Links Function -----------------------------------------------
 def SideBarLinks(show_home=False):
@@ -104,32 +75,27 @@ def SideBarLinks(show_home=False):
     if st.session_state["authenticated"]:
 
         if st.session_state["role"] == "co-op_student":
-            # PolStratAdvHomeNav()
-            # WorldBankVizNav()
-            # MapDemoNav()
-            AdvisorNav()
             ReviewStudentNav()
-            AdminPageNav()
-            HomeNav()
+            SearchStudentNav()
+            CoopList()
+            CoopDetails()
 
         if st.session_state["role"] == "co-op_advisor":
-            # PredictionNav()
-            # ApiTestNav()
-            # ClassificationNav()
-            SearchStudentNav()
-            ReviewStudentNav()
-            AdminPageNav()
-            HomeNav()
-
+            AdvisorNav()
 
         if st.session_state["role"] == "administrator":
-            SearchStudentNav()
+            AdminPageNav()
+            DeleteStudent()
+            ManageSurvey()
+            ManageUsers()
             
 
         if st.session_state["role"] == "student_reviewing":
-            AdminPageNav()
-            # TO-DO: 
-            # add student reviewing pages here
+            ReviewStudentNav()
+            SearchStudentNav()
+            CoopList()
+            CoopDetails()
+
 
     # Always show the About page at the bottom of the list of links
     AboutPageNav()
