@@ -5,7 +5,13 @@
 ### Due 6 December 2024 @ 12pm EST
 ### LINK TO YOUTUBE VIDEO (6-9 min)
 
-Project Overview:
+Brief intro of team and members
+Include an “Elevator Pitch” for your application (30 - 45 seconds)
+Quick review of the routes (code) you’ve created and how you’ve organized them in blueprints. (2 mins max).  You don’t need to go line-by-line.  Go through high level organization, point out the different types of routes (get, post, put, delete, etc)	
+Demo of the front-end Streamlit application your team has created. (~ 5 mins)  
+Be sure to show that for any POST/PUT/DELETE routes, the database reflects the results of the operation by looking at the data in DataGrip. 
+
+**Project Overview**
 NorthStar is a data-driven app that streamlines interview preparation for students applying for co-op roles. It provides a centralized platform with detailed insights into interview experiences, peer connections for tips, and filters by industry, company, or role. Advisors and administrators can also leverage the platform to support students effectively.
 
 ## User Personas
