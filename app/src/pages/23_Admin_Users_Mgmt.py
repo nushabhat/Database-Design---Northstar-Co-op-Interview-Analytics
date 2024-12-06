@@ -29,7 +29,8 @@ def get_students_data():
     
 def edit_student(student_id, updates):
     try:
-        response = requests.put("http://api:4000/a/edit_student", json={"id": student_id, **updates})
+        response = requests.put("http://api:4000/a/edit_student", json={"id": int(student_id), **updates})
+        
         #st.write("Request sent to API:", {"id": student_id, **updates})  # Debugging: log request data
         #st.write("API Response:", response.status_code, response.text)  # Debugging: log API response
         if response.status_code == 200:
