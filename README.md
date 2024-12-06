@@ -18,16 +18,18 @@ NorthStar is a data-driven app that streamlines interview preparation for studen
 1. Open the repository in the IDE of your choice.
 2. In the new api folder create a file named ".env"
     Should be formated as such:
+   
        ``` SECRET_KEY=someCrazyS3cR3T!Key.!
         DB_USER=root
         DB_HOST=db
         DB_PORT=3306
         DB_NAME=northstar
         MYSQL_ROOT_PASSWORD= XXX ```
+   
     Replace the X's with a unique password
-3. Open the terminal "Ctrl + `"
-4. docker compose up -d
-5. run http://localhost:8501 in your browser
+4. Open the terminal "Ctrl + `"
+5. docker compose up -d
+6. run http://localhost:8501 in your browser
 
 ## User Personas
 
