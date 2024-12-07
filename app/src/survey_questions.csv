@@ -1,5 +1,4 @@
 Question,Type,Options
-Company Name,text,
 Role Name,text,
 "Month/Year of Interview (e.g., Oct 2024)",text,
 Company Industry,text,
@@ -13,3 +12,7 @@ Quantity of previous co-ops/internships,number,
 Quantity of extracurriculars,number,
 Quantity of academic extracurriculars,number,
 Do you hold leadership positions in these extracurriculars?,radio,"Yes, No"
+Rate the difficulty of the question from 1 to 10 ,number,
+Rate the difficulty of the question from 1 to 10 ,text,
+How would you rate this interview from 1 to 10 ,number,
+How difficult was the interview ,text,

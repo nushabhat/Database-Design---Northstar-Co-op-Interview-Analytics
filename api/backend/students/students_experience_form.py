@@ -15,7 +15,7 @@ def submit_experience():
          # List of required fields
         required_fields = [
             'company_name', 'role_name', 'interview_date', 'industry',
-            'difficulty_rating', 'difficulty_elaboration', 'graduation_year',
+            'difficulty_rating', 'graduation_year',
             'major', 'gpa', 'student_id'
         ]
 
