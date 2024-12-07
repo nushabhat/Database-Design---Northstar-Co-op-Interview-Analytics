@@ -4,12 +4,6 @@
 ### Project Name: NorthStar Technologies
 ### LINK TO YOUTUBE VIDEO (6-9 min)
 
-Brief intro of team and members
-Include an “Elevator Pitch” for your application (30 - 45 seconds)
-Quick review of the routes (code) you’ve created and how you’ve organized them in blueprints. (2 mins max).  You don’t need to go line-by-line.  Go through high level organization, point out the different types of routes (get, post, put, delete, etc)	
-Demo of the front-end Streamlit application your team has created. (~ 5 mins)  
-Be sure to show that for any POST/PUT/DELETE routes, the database reflects the results of the operation by looking at the data in DataGrip. 
-
 **Project Overview** 
 
 NorthStar is a data-driven app that streamlines interview preparation for students applying for co-op roles. It provides a centralized platform with detailed insights into interview experiences, peer connections for tips, and filters by industry, company, or role. Advisors and administrators can also leverage the platform to support students effectively.
@@ -55,21 +49,6 @@ NorthStar is a data-driven app that streamlines interview preparation for studen
 - A recent graduate who created NorthStar to address the lack of specific and accessible interview preparation resources.
 - Needs a centralized platform to provide tailored interview insights and trends analysis.
 - Aims to help students avoid the same struggles she experienced during her co-op application process.
-
-## Prerequisites
-
-- A GitHub Account
-- A terminal-based or GUI git client
-- VSCode with the Python Plugin
-- A distrobution of Python running on your laptop (Choco (for Windows), brew (for Macs), miniconda, Anaconda, etc). 
-
-## Current Project Components
-
-Currently, there are three major components which will each run in their own Docker Containers:
-
-- Streamlit App in the `./app` directory
-- Flask REST api in the `./api` directory
-- SQL files for your data model and data base in the `./database-files` directory 
 
 ## Controlling the Containers
 
