@@ -22,9 +22,10 @@ def LogOut():
 
 
 #### ------------------------ Co-op Advisor ------------------------
-def AdvisorNav(): 
-    # Using a page link, no changes needed here, it's fine
-    st.sidebar.page_link("pages/01_Co-op_Advisor_Home.py", label="Advisory Page", icon="👩‍💼")
+def AdvisorNav():
+    st.sidebar.page_link("pages/01_Advisor_Statistics_Table.py", label = "Advisor Table", icon = "👨‍💻")
+    st.sidebar.page_link("pages/01_Advisor_Scatter.py", label = "Scatterplot", icon = "📈")
+    st.sidebar.page_link("pages/01_Advisor_Histogram.py", label = "Histogram", icon = "📶")
 
 
 #### ------------------------ Student Searching ------------------------

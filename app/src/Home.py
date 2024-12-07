@@ -71,7 +71,7 @@ if st.button('Act as Holly, a Co-op Advisor',
     st.session_state['authenticated'] = True
     st.session_state['role'] = 'co-op_advisor'
     st.session_state['first_name'] = 'Holly'
-    st.switch_page('pages/01_Co-op_Advisor_Home.py')
+    st.switch_page('pages/01_Advisor_Statistics_Table.py')
 
 if st.button('Act as Sarah, a System Administrator', 
             type = 'primary', 
