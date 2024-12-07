@@ -2,7 +2,7 @@
 
 ### Team Members: Quillian Alewine, Sarah Cooper, San Yan, Nusha Bhat, Lucia Yaniz
 ### Project Name: NorthStar Technologies
-### LINK TO YOUTUBE VIDEO (6-9 min)
+### [Link to Youtube Video (8:37)]((https://youtu.be/JiTbq1K2oYI)
 
 **Project Overview** 
 
